@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+	<link rel="shortcut icon" href="imagens/icons8-foguete-64.png" type="image/x-icon">
+	<title>Página com Vídeo em Background</title>
+	<style>
+
+
+@import url('https://fonts.googleapis.com/css2?family=Orbit&family=Space+Grotesk:wght@300&display=swap');
+		/* Estilos para o vídeo */
+		#myVideo {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			z-index: -1;
+		}
+
+		/* Estilos para o conteúdo da página */
+		.content {
+			position: relative;
+			z-index: 1;
+			padding: 700px;
+			text-align: center;
+			align-items: first baseline;
+			color: #fff;
+			font-size: 36px;
+		}
+
+		/* Estilos para a imagem de fundo da seção */
+
+		/* Estilos para o botão */
+
+		.painel {
+			position: absolute;
+			background-image: url(imagens/scifi-hud.gif);
+			background-size: cover;
+			top: 0;
+			right: 0;
+			width: 25%;
+			height: calc(100% - 70px);
+			background-color: rgba(255, 255, 255, 0.5);
+			box-shadow: inset 0px 0px 10px #00FFFF, 0px 0px 10px #00FFFF;
+			padding: 20px;
+			margin: 30px;
+			box-sizing: border-box;
+			font-family: 'Orbit', sans-serif;
+		}
+
+		.painel input {
+			font-size: 28px;
+			margin-bottom: 10px;
+			margin-top: 10px;
+			border-radius: 5px;
+			text-align: center;
+			animation: pulse 1.5s infinite;
+			font-family: 'Orbit', sans-serif;
+		}
+
+		.senha {
+			margin-top: 430px;
+			background-color: rgba(46, 241, 176, 0.58);
+			text-align: center;
+			border-radius: 5px;
+			animation: pulse 1.5s infinite;
+			padding: 10px;
+			font-family: 'Orbit', sans-serif;
+		}
+
+		@keyframes pulse {
+			0% {
+				border-color: #0FF;
+				box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.4);
+			}
+			70% {
+				border-color: #0FF;
+				box-shadow: 0 0 0 10px rgba(0, 255, 255, 0);
+			}
+			100% {
+				border-color: #0FF;
+				box-shadow: 0 0 0 0 rgba(0, 255, 255, 0);
+			}
+			150% {
+				border-color: #0FF;
+				box-shadow: 0 0 0 0 rgba(0, 255, 255, 0);
+			}
+		}
+
+	.impacto > p{
+		color: #252525;
+		font-weight: 900;
+		font-size: 18px;
+	}
+
+	
+	.mensagem-estilizada {
+		height: 200px;
+		width: 200px;
+		padding: 10px;
+		padding-top: 50px;
+		margin: 10px;
+		color: rgb(255, 255, 255);
+		font-size: 28px;
+		justify-content: center;
+		text-align: center;
+		position: absolute;
+		top: 50%;	
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-color: rgba(46, 241, 176, 0.58);
+		border-radius: 20px;
+		font-family: 'Orbit', sans-serif;
+		line-height: 30px;
+		animation: pulse .5s infinite;
+	}
+
+	#time {
+		animation: pulse 1s infinite;
+		font-size: 32px;
+		font-weight: 900;
+		color: red
+	}
+
+	
+</style>
+
+	
+</head>
+<body>
+
+	<iframe src="sonsdanave.mp3" type="audio/mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+<audio autoplay>
+    <source src="sonsdanave.mp3" type="audio/mp3">
+</audio>
+	</audio>
+	<div class="painel" id="mensagemFinal">
+
+			
+		<div class="senha">
+			<div class="impacto"><p>Impacto em:</p> <span id="time">20:00</span></div>
+			<h1>Piloto automático</h1>
+			<form id="formPiloto">
+				<label for="chave">Insira a chave de acesso:</label>
+				<input type="text" class="chave" id="chave" required>
+				<button type="submit">Confirmar</button>
+			</form>
+		</div>
+		
+	</div>
+
+	<!-- Vídeo de background -->
+	<video autoplay muted loop id="myVideo">
+		<source src="imagens/video2.mp4" type="video/mp4" playbackrate>
+	</video>
+
+	<script>
+
+
+
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+		
+		if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
+
+window.onload = function () {
+    var fiveMinutes = 60 * 20,
+        display = document.querySelector('#time');
+    startTimer(fiveMinutes, display);
+};
+
+		
+	document.getElementById("formPiloto").addEventListener("submit", function (event) {
+		event.preventDefault(); // Impede o envio do formulário
+		var chaveInput = document.getElementById("chave");
+		var valorChave = chaveInput.value;
+		
+		if (valorChave === "26081918") {
+			var video = document.getElementById("myVideo");
+			video.playbackRate = 0.4; // Diminui a velocidade de reprodução pela metade
+			document.getElementById("mensagemFinal").innerHTML = "<span class='mensagem-estilizada'>Piloto automático ligado.<br> Rota segura estabelecida.</span>";
+
+			var audio = new Audio("somdavitoria.mp3"); // Substitua "caminho/do/arquivo.mp3" pelo caminho correto do seu arquivo MP3
+			audio.playbackRate = .9
+        audio.play();
+		}
+
+
+
+	});
+
+	
+</script>
+	
+</body>
+</html>
